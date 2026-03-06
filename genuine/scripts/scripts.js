@@ -203,7 +203,7 @@ async function loadGenuinePage() {
 
 decorateArea();
 
-(async function loadPage() {
+async function loadPage() {
   const validate = document.head.querySelector('meta[name="validate"]');
   if (validate?.content === 'on' && !window.location.hostname.includes('aem.page')) {
     if ((await isTokenValid(miloLibs)) || noRedirect) {
@@ -217,4 +217,12 @@ decorateArea();
     return;
   }
   loadGenuinePage();
+}
+loadPage();
+
+// DA Live Preview
+(async function loadDa() {
+  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
+  // eslint-disable-next-line import/no-unresolved
+  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
 }());
