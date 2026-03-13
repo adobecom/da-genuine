@@ -36,7 +36,7 @@ export const [setLibs, getLibs] = (() => {
       if (
         !(hostname.includes('hlx.page') || hostname.includes('aem.page'))
         && !(hostname.includes('hlx.live') || hostname.includes('aem.live'))
-        && !hostname.includes('localhost')
+        && !hostname.includes('localhost') && !hostname.includes('.da.')
       ) {
         libs = prodLibs;
         return libs;
