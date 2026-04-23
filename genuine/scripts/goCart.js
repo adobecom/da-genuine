@@ -56,7 +56,7 @@ export async function loadBFP() {
     const { loadScript } = await import(`${miloLibs}/utils/utils.js`);
     const {
       prodDomains,
-      bfp: { apiKey, prodURL, stageURL },
+      bfp: { apiKey, prodURL, stageURL, clientId },
     } = getConfig();
     const env = getBFPEnvironment(window.location.host, prodDomains);
 
@@ -71,7 +71,7 @@ export async function loadBFP() {
           window?.lana?.log('Skipping BFPJS load because UMI is missing', { severity: 'w' });
           return Promise.resolve();
         }
-        return window.BFPJS.load({ debug: !isProd, xApiKey: apiKey, env });
+        return window.BFPJS.load({ debug: !isProd, xApiKey: apiKey, env, clientId });
       })
       .then((fp) => fp.get())
       .then(({ components, version }) => {
