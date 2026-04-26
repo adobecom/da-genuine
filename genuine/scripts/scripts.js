@@ -20,9 +20,9 @@ const STYLES = '/genuine/styles/styles.css';
 
 // Use '/libs' if your live site maps '/libs' to milo's origin.
 const LIBS = '/libs';
-const noRedirect = new URLSearchParams(window.location.search).get(
-  'noRedirect',
-);
+const NO_REDIRECT = new URLSearchParams(window.location.search).get('noRedirect');
+const IS_DA_PREVIEW = new URLSearchParams(window.location.search).get('dapreview') === 'on'
+  && window.location.hostname.includes('preview.da.live');
 
 const locales = {
   // Americas
@@ -186,15 +186,36 @@ const { loadArea, setConfig, loadLana } = await import(
 
 setConfig({ ...CONFIG, miloLibs });
 
+function isValidationSkipped() {
+  const { hostname } = window.location;
+  return hostname.includes('aem.page') || IS_DA_PREVIEW;
+}
+
 async function loadGenuinePage() {
   loadLana({ clientId: 'genuine' });
   await loadArea();
   decorateLinks();
-  // Load BFP if 'browser-fingerprint' meta tag is enabled
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
   if (isBfpEnabled) loadBFP();
 }
 
+async function loadPage() {
+  const validate = document.head.querySelector('meta[name="validate"]');
+  if (validate?.content === 'on' && !isValidationSkipped()) {
+    if ((await isTokenValid(miloLibs)) || NO_REDIRECT) {
+      loadGenuinePage();
+      return;
+    }
+    const defaultPage = document.head.querySelector(
+      'meta[name="default-page"]',
+    );
+    window.location.href = defaultPage?.content || 'https://www.adobe.com/genuine.html';
+    return;
+  }
+  loadGenuinePage();
+}
+
+// Bootstrap
 (function loadStyles() {
   const paths = [`${miloLibs}/styles/styles.css`];
   if (STYLES) {
@@ -207,29 +228,12 @@ async function loadGenuinePage() {
     document.head.appendChild(link);
   });
 }());
-
 decorateArea();
-
-async function loadPage() {
-  const validate = document.head.querySelector('meta[name="validate"]');
-  if (validate?.content === 'on' && !window.location.hostname.includes('aem.page')) {
-    if ((await isTokenValid(miloLibs)) || noRedirect) {
-      loadGenuinePage();
-      return;
-    }
-    const defaultPage = document.head.querySelector(
-      'meta[name="default-page"]',
-    );
-    window.location.href = defaultPage?.content || 'https://www.adobe.com/genuine.html';
-    return;
-  }
-  loadGenuinePage();
-}
 loadPage();
 
 // DA Live Preview
 (async function loadDa() {
-  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
+  if (!IS_DA_PREVIEW) return;
   // eslint-disable-next-line import/no-unresolved
   import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
 }());
