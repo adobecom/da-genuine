@@ -45,16 +45,20 @@ export async function isTokenValid() {
   }
 }
 
+function getBFPEnvironment(host, prodDomains) {
+  if (host.includes('localhost')) return 'dev';
+  if (host.includes(prodDomains[0]) || host.includes('.aem.live')) return 'prod';
+  return 'stage';
+}
+
 export async function loadBFP() {
   try {
     const { loadScript } = await import(`${miloLibs}/utils/utils.js`);
     const {
       prodDomains,
-      bfp: { apiKey, prodURL, stageURL },
+      bfp: { apiKey, prodURL, stageURL, clientId },
     } = getConfig();
-    let env = 'stage';
-    if (window.origin.includes(prodDomains[0])) env = 'prod';
-    else if (window.origin.includes('localhost')) env = 'dev';
+    const env = getBFPEnvironment(window.location.host, prodDomains);
 
     const isProd = env === 'prod';
     const scriptURL = isProd ? prodURL : stageURL;
@@ -67,7 +71,7 @@ export async function loadBFP() {
           window?.lana?.log('Skipping BFPJS load because UMI is missing', { severity: 'w' });
           return Promise.resolve();
         }
-        return window.BFPJS.load({ debug: !isProd, xApiKey: apiKey, env });
+        return window.BFPJS.load({ debug: !isProd, xApiKey: apiKey, env, clientId });
       })
       .then((fp) => fp.get())
       .then(({ components, version }) => {
