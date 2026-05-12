@@ -12,7 +12,7 @@
 
 import { setLibs, getUrlParams, decorateArea } from './utils.js';
 
-import { isTokenValid, loadBFP } from './goCart.js';
+import { isTokenValid } from './goCart.js';
 
 import { decorateLinks } from './decorate.js';
 
@@ -159,11 +159,8 @@ const CONFIG = {
     version: '1.83',
     onDemand: false,
   },
-  bfp: {
-    stageURL: 'https://bfp-stage.adobe.com/bfp/v1/bfp.min.js',
-    prodURL: 'https://bfp.adobe.com/bfp/v1/bfp.min.js',
-    apiKey: 'genuine-bfp-milo',
-    clientId: window.adobeIMS?.serviceRequest?.clientId ?? 'adobedotcom-cc',
+  unav: {
+    isARPEnabled: true,
   },
   uniqueSiteId: 'da-genuine',
   mepLingoCountryToRegion: {
@@ -195,8 +192,6 @@ async function loadGenuinePage() {
   loadLana({ clientId: 'genuine' });
   await loadArea();
   decorateLinks();
-  const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
-  if (isBfpEnabled) loadBFP();
 }
 
 async function loadPage() {
