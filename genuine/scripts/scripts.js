@@ -165,6 +165,9 @@ const CONFIG = {
     apiKey: 'genuine-bfp-milo',
     clientId: window.adobeIMS?.serviceRequest?.clientId ?? 'adobedotcom-cc',
   },
+  unav: {
+    isArpEnabled: true,
+  },
   uniqueSiteId: 'da-genuine',
   mepLingoCountryToRegion: {
     africa: ['ke', 'mu', 'ng', 'za'],
@@ -180,7 +183,7 @@ const CONFIG = {
  */
 
 const miloLibs = setLibs(LIBS);
-const { loadArea, setConfig, loadLana } = await import(
+const { loadArea, setConfig, loadLana, getConfig } = await import(
   `${miloLibs}/utils/utils.js`
 );
 
@@ -196,7 +199,8 @@ async function loadGenuinePage() {
   await loadArea();
   decorateLinks();
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
-  if (isBfpEnabled) loadBFP();
+  const isArpEnabled = getConfig()?.unav?.isArpEnabled;
+  if (isBfpEnabled && isArpEnabled !== true) loadBFP();
 }
 
 async function loadPage() {
