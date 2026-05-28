@@ -165,7 +165,7 @@ const CONFIG = {
     apiKey: 'genuine-bfp-milo',
     clientId: window.adobeIMS?.serviceRequest?.clientId ?? 'adobedotcom-cc',
   },
-  unav: { isArpEnabled: true, },
+  unav: { isArpEnabled: true },
   uniqueSiteId: 'da-genuine',
   mepLingoCountryToRegion: {
     africa: ['ke', 'mu', 'ng', 'za'],
