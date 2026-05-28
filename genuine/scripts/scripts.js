@@ -146,6 +146,7 @@ const CONFIG = {
     edgeConfigId: 'e065836d-be57-47ef-b8d1-999e1657e8fd',
     pdfViewerClientId: '9f7f19a46bd542e2b8548411e51eb4d4',
     pdfViewerReportSuite: 'adbadobenonacdcqa',
+    unav: { isArpEnabled: true },
   },
   prod: {
     marTechUrl:
@@ -165,7 +166,6 @@ const CONFIG = {
     apiKey: 'genuine-bfp-milo',
     clientId: window.adobeIMS?.serviceRequest?.clientId ?? 'adobedotcom-cc',
   },
-  unav: { isArpEnabled: true },
   uniqueSiteId: 'da-genuine',
   mepLingoCountryToRegion: {
     africa: ['ke', 'mu', 'ng', 'za'],
@@ -181,7 +181,7 @@ const CONFIG = {
  */
 
 const miloLibs = setLibs(LIBS);
-const { loadArea, setConfig, loadLana, getConfig } = await import(
+const { loadArea, setConfig, loadLana } = await import(
   `${miloLibs}/utils/utils.js`
 );
 
@@ -197,8 +197,8 @@ async function loadGenuinePage() {
   await loadArea();
   decorateLinks();
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
-  const isArpEnabled = getConfig()?.unav?.isArpEnabled;
-  if (isBfpEnabled && isArpEnabled !== true) loadBFP();
+  const isArpEnabled = CONFIG.stage?.unav?.isArpEnabled;
+  if (isBfpEnabled && !isArpEnabled) loadBFP();
 }
 
 async function loadPage() {
