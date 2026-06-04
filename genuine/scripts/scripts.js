@@ -144,9 +144,7 @@ const CONFIG = {
   unav: {
     isArpEnabled: true,
     ...(umi && {
-      arpConfig: {
-        metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) },
-      },
+      arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } },
     }),
   },
   stage: {
