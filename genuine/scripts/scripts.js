@@ -143,9 +143,7 @@ const CONFIG = {
   placeholders: getUrlParams(),
   unav: {
     isArpEnabled: true,
-    ...(umi && {
-      arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } },
-    }),
+    ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
   },
   stage: {
     marTechUrl:
