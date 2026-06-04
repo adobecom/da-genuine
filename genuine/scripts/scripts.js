@@ -145,8 +145,7 @@ const CONFIG = {
     isArpEnabled: true,
     ...(umi && {
       arpConfig: {
-        metadata: {
-          deviceId: JSON.stringify({ type: 'umi', value: umi }) },
+        metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) },
       },
     }),
   },
