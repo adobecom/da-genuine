@@ -125,6 +125,7 @@ const locales = {
   cis_ru: { ietf: 'ru', tk: 'qxw8hzm.css' },
   cis_en: { ietf: 'en', tk: 'pps7abe.css' },
 };
+const umi = new URLSearchParams(window.location.search).get('umi');
 
 // Add any config options.
 const CONFIG = {
@@ -140,13 +141,16 @@ const CONFIG = {
     'genuine.adobe.com',
   ],
   placeholders: getUrlParams(),
+  unav: {
+    isArpEnabled: true,
+    ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
+  },
   stage: {
     marTechUrl:
       'https://assets.adobedtm.com/d4d114c60e50/a0e989131fd5/launch-2c94beadc94f-development.min.js',
     edgeConfigId: 'e065836d-be57-47ef-b8d1-999e1657e8fd',
     pdfViewerClientId: '9f7f19a46bd542e2b8548411e51eb4d4',
     pdfViewerReportSuite: 'adbadobenonacdcqa',
-    unav: { isArpEnabled: true },
   },
   prod: {
     marTechUrl:
@@ -181,7 +185,7 @@ const CONFIG = {
  */
 
 const miloLibs = setLibs(LIBS);
-const { loadArea, setConfig, loadLana } = await import(
+const { loadArea, setConfig, loadLana, getConfig } = await import(
   `${miloLibs}/utils/utils.js`
 );
 
@@ -197,8 +201,8 @@ async function loadGenuinePage() {
   await loadArea();
   decorateLinks();
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
-  const isArpEnabled = CONFIG.stage?.unav?.isArpEnabled;
-  if (isBfpEnabled && !isArpEnabled) loadBFP();
+  const isArpEnabled = getConfig()?.unav?.isArpEnabled;
+  if (isBfpEnabled && isArpEnabled !== true) loadBFP();
 }
 
 async function loadPage() {
