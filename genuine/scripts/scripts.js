@@ -140,9 +140,7 @@ const CONFIG = {
     'genuine.adobe.com',
   ],
   placeholders: getUrlParams(),
-  unav: {
-    isArpEnabled: false,
-  },
+  unav: { isArpEnabled: false },
   stage: {
     marTechUrl:
       'https://assets.adobedtm.com/d4d114c60e50/a0e989131fd5/launch-2c94beadc94f-development.min.js',
