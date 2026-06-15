@@ -125,7 +125,6 @@ const locales = {
   cis_ru: { ietf: 'ru', tk: 'qxw8hzm.css' },
   cis_en: { ietf: 'en', tk: 'pps7abe.css' },
 };
-const umi = new URLSearchParams(window.location.search).get('umi');
 
 // Add any config options.
 const CONFIG = {
@@ -142,8 +141,7 @@ const CONFIG = {
   ],
   placeholders: getUrlParams(),
   unav: {
-    isArpEnabled: true,
-    ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
+    isArpEnabled: false,
   },
   stage: {
     marTechUrl:
