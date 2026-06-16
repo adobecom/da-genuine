@@ -125,7 +125,6 @@ const locales = {
   cis_ru: { ietf: 'ru', tk: 'qxw8hzm.css' },
   cis_en: { ietf: 'en', tk: 'pps7abe.css' },
 };
-const umi = new URLSearchParams(window.location.search).get('umi');
 
 // Add any config options.
 const CONFIG = {
@@ -141,10 +140,7 @@ const CONFIG = {
     'genuine.adobe.com',
   ],
   placeholders: getUrlParams(),
-  unav: {
-    isArpEnabled: true,
-    ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
-  },
+  unav: { isArpEnabled: false },
   stage: {
     marTechUrl:
       'https://assets.adobedtm.com/d4d114c60e50/a0e989131fd5/launch-2c94beadc94f-development.min.js',
