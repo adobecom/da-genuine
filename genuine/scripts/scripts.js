@@ -140,6 +140,7 @@ const CONFIG = {
     'genuine.adobe.com',
   ],
   placeholders: getUrlParams(),
+  unav: { isArpEnabled: false },
   stage: {
     marTechUrl:
       'https://assets.adobedtm.com/d4d114c60e50/a0e989131fd5/launch-2c94beadc94f-development.min.js',
@@ -180,7 +181,7 @@ const CONFIG = {
  */
 
 const miloLibs = setLibs(LIBS);
-const { loadArea, setConfig, loadLana } = await import(
+const { loadArea, setConfig, loadLana, getConfig } = await import(
   `${miloLibs}/utils/utils.js`
 );
 
@@ -196,7 +197,8 @@ async function loadGenuinePage() {
   await loadArea();
   decorateLinks();
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
-  if (isBfpEnabled) loadBFP();
+  const isArpEnabled = getConfig()?.unav?.isArpEnabled;
+  if (isBfpEnabled && isArpEnabled !== true) loadBFP();
 }
 
 async function loadPage() {

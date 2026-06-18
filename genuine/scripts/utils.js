@@ -33,11 +33,7 @@ export const [setLibs, getLibs] = (() => {
         return libs;
       }
       const { hostname } = window.location;
-      if (
-        !(hostname.includes('hlx.page') || hostname.includes('aem.page'))
-        && !(hostname.includes('hlx.live') || hostname.includes('aem.live'))
-        && !hostname.includes('localhost') && !hostname.includes('.da.')
-      ) {
+      if (!['.aem.', '.hlx.', '.stage.', 'localhost', '.da.'].some((i) => hostname.includes(i))) {
         libs = prodLibs;
         return libs;
       }
@@ -47,6 +43,7 @@ export const [setLibs, getLibs] = (() => {
         libs = 'http://localhost:6456/libs';
         return libs;
       }
+      if (branch === 'main' && hostname.includes('.stage.')) { libs = prodLibs; return libs; }
       if (branch.indexOf('--') > -1) {
         libs = `https://${branch}.aem.live/libs`;
         return libs;
