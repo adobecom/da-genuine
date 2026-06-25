@@ -141,6 +141,7 @@ const CONFIG = {
     'business.adobe.com',
     'genuine.adobe.com',
   ],
+  placeholders: getUrlParams(),
   unav: {
     isArpEnabled: true,
     ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
