@@ -200,7 +200,10 @@ function isValidationSkipped() {
 async function loadGenuinePage() {
   loadLana({ clientId: 'genuine' });
   await loadArea();
-  decorateLinks();
+  const { default: getServiceConfig } = await import(`${miloLibs}/utils/service-config.js`);
+  const serviceConf = await getServiceConfig(getConfig().codeRoot);
+  const paramKeys = serviceConf?.gocart?.additionalparamkeys?.split(',').map((k) => k.trim());
+  decorateLinks(paramKeys);
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
   const isArpEnabled = getConfig()?.unav?.isArpEnabled;
   if (isBfpEnabled && isArpEnabled !== true) loadBFP();

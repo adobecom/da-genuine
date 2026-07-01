@@ -19,7 +19,7 @@
 /**
  * Genuine pages param keys
  */
-export const GOCART_PARAM_KEYS = ['gid', 'gtoken', 'sdid', 'cohortid', 'timer', 'gcsrc', 'gcprog', 'gcprogcat', 'gcpagetype', 'language', 'productname', 'daysremaining', 'serviceName', 'notifauditid'];
+export const GOCART_PARAM_KEYS = ['gid', 'gtoken', 'sdid', 'cohortid', 'timer', 'gcsrc', 'gcprog', 'gcprogcat', 'gcpagetype', 'language', 'productname', 'daysremaining', 'serviceName', 'notifauditid', 'client_id', 'response_type', 'puser', 'genmode'];
 
 /**
  * The decision engine for where to get Milo's libs from.
@@ -84,8 +84,9 @@ function getParamValue(val) {
   return paramValue;
 }
 
-export function getUrlParams() {
-  return GOCART_PARAM_KEYS.reduce((acc, key) => {
+export function getUrlParams(paramKeys = []) {
+  const keys = [...new Set([...GOCART_PARAM_KEYS, ...paramKeys])];
+  return keys.reduce((acc, key) => {
     const paramValue = getParamValue(key);
     if (paramValue) acc[key] = paramValue;
     return acc;
