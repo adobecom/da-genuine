@@ -41,13 +41,13 @@ function goCartLinkAppend(link, paramsValue) {
   }
 }
 
-export function decorateLinks() {
+export function decorateLinks(paramKeys) {
   // Include links in header-localnav and main
   const localNavSelector = 'header.local-nav';
   const localNavLinksSelector = `${localNavSelector} .feds-navItem:not(.feds-navItem--megaMenu) a:not([href^="tel:"])`;
   const links = document.querySelectorAll(`${localNavLinksSelector}, main a:not([href^="tel:"])`);
   const cache = document.head.querySelector('meta[name="cache"]');
-  const paramsValue = getUrlParams();
+  const paramsValue = getUrlParams(paramKeys);
   const shouldAppendParams = cache?.content === 'on' && Object.keys(paramsValue).length > 0;
 
   links.forEach((link) => {
