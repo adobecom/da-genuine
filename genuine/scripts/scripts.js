@@ -126,6 +126,8 @@ const locales = {
   cis_en: { ietf: 'en', tk: 'pps7abe.css' },
 };
 
+const umi = new URLSearchParams(window.location.search).get('umi');
+
 // Add any config options.
 const CONFIG = {
   contentRoot: '/genuine-shared',
@@ -140,7 +142,10 @@ const CONFIG = {
     'genuine.adobe.com',
   ],
   placeholders: getUrlParams(),
-  unav: { isArpEnabled: false },
+  unav: {
+    isArpEnabled: true,
+    ...(umi && { arpConfig: { metadata: { deviceId: JSON.stringify({ type: 'umi', value: umi }) } } }),
+  },
   stage: {
     marTechUrl:
       'https://assets.adobedtm.com/d4d114c60e50/a0e989131fd5/launch-2c94beadc94f-development.min.js',
@@ -195,7 +200,10 @@ function isValidationSkipped() {
 async function loadGenuinePage() {
   loadLana({ clientId: 'genuine' });
   await loadArea();
-  decorateLinks();
+  const { default: getServiceConfig } = await import(`${miloLibs}/utils/service-config.js`);
+  const serviceConf = await getServiceConfig(getConfig().codeRoot);
+  const paramKeys = serviceConf?.gocart?.additionalparamkeys?.split(',').map((k) => k.trim());
+  decorateLinks(paramKeys);
   const isBfpEnabled = document.head.querySelector('meta[name="browser-fingerprint"]')?.content === 'on';
   const isArpEnabled = getConfig()?.unav?.isArpEnabled;
   if (isBfpEnabled && isArpEnabled !== true) loadBFP();
