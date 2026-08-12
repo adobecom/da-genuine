@@ -417,11 +417,6 @@
   --merch-card-plans-padding: 18px;
 }
 
-.aside-merch merch-card [slot="body-xs"] p:not(:has(a)) {
-  padding-inline-start: 1em;
-  text-indent: -1em;
-}
-
 .aside-merch merch-card [slot="body-xs"] p:has(a) + p:not(:has(a)) {
   margin-top: var(--spacing-s);
 }
