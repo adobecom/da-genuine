@@ -131,6 +131,7 @@ export default function init(el) {
   merchCardEls.forEach((e) => e.classList.remove('merch-card-el'));
   el.querySelectorAll('merch-card [slot="body-xs"] p').forEach((p) => {
     if (p.firstChild?.nodeName === 'BR') p.firstChild.remove();
+    if (p.textContent.trim().startsWith('•')) p.classList.add('bulleted');
   });
   decorateTextOverrides(el);
   if (el.classList.contains('l-title')) el.querySelector('[class*="detail-"]')?.classList.add('title-l');
