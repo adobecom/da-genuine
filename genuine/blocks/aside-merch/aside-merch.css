@@ -430,6 +430,10 @@
   display: inline;
 }
 
+.aside-merch.merch-card-paragraph-spacing merch-card [slot="body-xs"] p:not(:last-child) {
+  margin-block-end: 20px;
+} 
+
 .aside-merch.no-media .foreground.container .text > [class^="heading-"]:not(merch-card *),
 .aside-merch.no-media .foreground.container .text > [class^="body-"]:not(merch-card *),
 .aside-merch.no-media .foreground.container .text > [class^="detail-"]:not(merch-card *),
