@@ -216,10 +216,8 @@ async function loadPage() {
       loadGenuinePage();
       return;
     }
-    const defaultPage = document.head.querySelector(
-      'meta[name="default-page"]',
-    );
-    window.location.href = defaultPage?.content || 'https://www.adobe.com/genuine.html';
+    const localePrefix = getConfig()?.locale?.prefix || '';
+    window.location.href = `https://www.adobe.com${localePrefix}/genuine.html`;
     return;
   }
   loadGenuinePage();
