@@ -217,7 +217,10 @@ async function loadPage() {
       return;
     }
     const localePrefix = getConfig()?.locale?.prefix || '';
-    window.location.href = `https://www.adobe.com${localePrefix}/genuine.html`;
+    const origin = window.location.hostname.includes('.stage.')
+      ? 'https://www.stage.adobe.com'
+      : 'https://www.adobe.com';
+    window.location.href = `${origin}${localePrefix}/genuine.html`;
     return;
   }
   loadGenuinePage();
