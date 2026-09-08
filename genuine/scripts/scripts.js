@@ -216,10 +216,11 @@ async function loadPage() {
       loadGenuinePage();
       return;
     }
-    const defaultPage = document.head.querySelector(
-      'meta[name="default-page"]',
-    );
-    window.location.href = defaultPage?.content || 'https://www.adobe.com/genuine.html';
+    const localePrefix = getConfig()?.locale?.prefix || '';
+    const origin = window.location.hostname.includes('.stage.')
+      ? 'https://www.stage.adobe.com'
+      : 'https://www.adobe.com';
+    window.location.href = `${origin}${localePrefix}/genuine.html`;
     return;
   }
   loadGenuinePage();
