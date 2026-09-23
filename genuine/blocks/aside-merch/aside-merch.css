@@ -63,7 +63,6 @@
   width: 100%;
   min-height: 80px;
   padding: var(--spacing-xs) var(--spacing-m);
-  border-radius: var(--aside-merch-border-radius-xs);
   background-color: var(--aside-merch-banner-bg);
   box-sizing: border-box;
 }
