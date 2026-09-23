@@ -51,6 +51,38 @@
   margin-bottom: var(--spacing-xs);
 }
 
+.aside-merch-banner {
+  --aside-merch-banner-bg: var(--color-white);
+
+  order: 1;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s);
+  width: 100%;
+  min-height: 80px;
+  padding: var(--spacing-xs) var(--spacing-m);
+  background-color: var(--aside-merch-banner-bg);
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.aside-merch .aside-merch-banner .con-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 599px) {
+  .aside-merch-banner {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .aside-merch .background picture {
   display: block;
   height: 100%;
@@ -226,7 +258,8 @@
 }
 
 .aside-merch.split.large.media-top-mobile,
-.aside-merch.split.large.media-bottom-mobile {
+.aside-merch.split.large.media-bottom-mobile,
+.aside-merch.split.large.has-banner {
   flex-direction: column;
 }
 
@@ -612,6 +645,11 @@
     max-width: 33.333%;
   }
 
+  .aside-merch.split.one-third .aside-merch-banner {
+    margin-inline-start: calc(33.333% + 38px);
+    width: calc(66.667% - 38px);
+  }
+
   .aside-merch.split.half .background {
     inset-inline-end: 50%;
   }
@@ -631,6 +669,11 @@
     padding: 0 var(--spacing-xl);
     margin-inline-start: 14px;
     box-sizing: border-box;
+  }
+
+  .aside-merch.split.half .aside-merch-banner {
+    margin-inline-start: 50%;
+    width: 50%;
   }
 
   .aside-merch.split.bio .foreground.container .text .icon-area:not(.con-button) {
