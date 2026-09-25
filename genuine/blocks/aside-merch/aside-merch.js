@@ -57,12 +57,13 @@ function loadIconography() {
   return new Promise((resolve) => { loadStyle(`${base}/styles/iconography.css`, resolve); });
 }
 
-// Authored as a row starting with "banner": [banner, content, color?]
+// Enabled via the "banner" variant, its own row (color, content)
 function decorateBanner(el) {
-  const rows = [...el.querySelectorAll(':scope > div')];
-  const bannerRow = rows.find((row) => row.children[0]?.textContent.trim().toLowerCase() === 'banner');
+  if (!el.classList.contains('banner')) return null;
+  const rows = el.querySelectorAll(':scope > div');
+  const bannerRow = rows.length > 2 ? rows[rows.length - 1] : null;
   if (!bannerRow) return null;
-  const [, contentCell, colorCell] = [...bannerRow.children];
+  const [colorCell, contentCell] = [...bannerRow.children];
   bannerRow.remove();
   if (!contentCell?.textContent.trim()) return null;
   const banner = createTag('div', { class: 'aside-merch-banner' });
