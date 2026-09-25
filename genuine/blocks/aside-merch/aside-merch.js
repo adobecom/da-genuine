@@ -154,8 +154,5 @@ export default function init(el) {
   });
   decorateTextOverrides(el);
   if (el.classList.contains('l-title')) el.querySelector('[class*="detail-"]')?.classList.add('title-l');
-  if (banner) {
-    el.append(banner);
-    el.classList.add('has-banner');
-  }
+  if (banner) el.append(banner);
 }

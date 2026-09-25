@@ -258,9 +258,14 @@
 }
 
 .aside-merch.split.large.media-top-mobile,
-.aside-merch.split.large.media-bottom-mobile,
-.aside-merch.split.large.has-banner {
+.aside-merch.split.large.media-bottom-mobile {
   flex-direction: column;
+}
+
+@media screen and (max-width: 599px) {
+  .aside-merch.split.large:not(.media-top-mobile):not(.media-bottom-mobile) .aside-merch-banner {
+    order: -1;
+  }
 }
 
 .aside-merch.split.half .background {
