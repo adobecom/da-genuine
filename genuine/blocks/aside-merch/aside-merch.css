@@ -69,6 +69,7 @@
   box-sizing: border-box;
   font-size: 18px;
   font-weight: 700;
+  margin-top: var(--spacing-xs);
 }
 
 .aside-merch .aside-merch-banner .con-button {
@@ -566,7 +567,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split .split-image img, .aside-merch.split .split-image video {
-    width: 50vw;
+    width: 50%;
     position: absolute;
     inset-inline-end: 0;
     object-fit: cover;
@@ -578,7 +579,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split.half .split-image img, .aside-merch.split.half .split-image video {
-    width: 50vw;
+    width: 50%;
     max-width: var(--aside-merch-max-width);
     object-position: center top;
   }
@@ -586,7 +587,7 @@
   .aside-merch.split.one-third .split-image .modal-img-link,
   .aside-merch.split.one-third .split-image img,
   .aside-merch.split.one-third .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
   }
 
   .aside-merch.split.split-left .split-image img, .aside-merch.split.split-left .split-image video {
@@ -601,7 +602,7 @@
 
   .aside-merch.split.one-third.split.half .split-image img,
   .aside-merch.split.one-third.split.half .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
     max-width: none;
   }
 
@@ -798,7 +799,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split .split-image img, .aside-merch.split .split-image video {
-    width: 60.5vw;
+    width: 60.5%;
   }
 
   .aside-merch.split .split-image img, .aside-merch.split .split-image video {
@@ -816,7 +817,7 @@
   .aside-merch.split.one-third .split-image .modal-img-link,
   .aside-merch.split.one-third .split-image img,
   .aside-merch.split.one-third .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
     max-width: 100%;
   }
 
@@ -835,7 +836,7 @@
 
 @media screen and (min-width: 1440px) {
   .aside-merch.split .foreground.container .text {
-    flex: 0 0 calc(500px - 10.5vw);
+    flex: 0 0 calc(500px - 10.5%);
   }
 
   .aside-merch.split.one-third .foreground.container .text {
