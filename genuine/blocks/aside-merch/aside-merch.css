@@ -51,6 +51,16 @@
   margin-bottom: var(--spacing-xs);
 }
 
+.aside-merch.heading-display h1 {
+  font-family: 'Adobe Clean Display', var(--body-font-family);
+  font-weight: 900;
+  font-style: normal;
+  font-size: 42px;
+  line-height: 115%;
+  letter-spacing: 0%;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
 .aside-merch-banner {
   --aside-merch-banner-bg: var(--color-white);
 
@@ -503,6 +513,11 @@
   .aside-merch.one-third .foreground.container .text > p:not(merch-card *) {
     max-width: var(--aside-merch-one-third-card-width);
   }
+
+  .aside-merch.heading-display h1 {
+    font-size: 32px;
+    line-height: 120%;
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -745,6 +760,11 @@
   .aside-merch.split.media-top-tablet .icon-stack-area li, .aside-merch.split.media-bottom-tablet .icon-stack-area li {
     width: calc(50% - 6px);
   }
+
+  .aside-merch.heading-display h1 {
+    font-size: 36px;
+    line-height: 118%;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -844,4 +864,3 @@
     max-width: 100%;
   }
 }
-
