@@ -85,6 +85,7 @@
 .aside-merch .aside-merch-banner .con-button {
   flex-shrink: 0;
   white-space: nowrap;
+  padding: 5px 18px 6px;
 }
 
 @media screen and (max-width: 599px) {
