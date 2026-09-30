@@ -4,6 +4,7 @@ import {
   applyHoverPlay,
   decorateBlockBg,
   decorateTextOverrides,
+  decorateButtons,
   createTag,
   getConfig,
   loadStyle,
@@ -54,6 +55,23 @@ function loadIconography() {
   const { miloLibs, codeRoot } = getConfig();
   const base = miloLibs || codeRoot;
   return new Promise((resolve) => { loadStyle(`${base}/styles/iconography.css`, resolve); });
+}
+
+// Enabled via the "banner" variant, its own row (color, content)
+function decorateBanner(el) {
+  if (!el.classList.contains('banner')) return null;
+  const rows = el.querySelectorAll(':scope > div');
+  const bannerRow = rows.length > 2 ? rows[rows.length - 1] : null;
+  if (!bannerRow) return null;
+  const [colorCell, contentCell] = [...bannerRow.children];
+  bannerRow.remove();
+  if (!contentCell?.textContent.trim()) return null;
+  const banner = createTag('div', { class: 'aside-merch-banner' });
+  banner.append(...contentCell.childNodes);
+  const color = colorCell?.textContent.trim();
+  if (color) banner.style.setProperty('--aside-merch-banner-bg', color);
+  decorateButtons(banner);
+  return banner;
 }
 
 export function handleImageLoad(el, image) {
@@ -124,6 +142,7 @@ function decorateLayout(el) {
 
 export default function init(el) {
   el.classList.add('con-block');
+  const banner = decorateBanner(el);
   const blockText = decorateLayout(el);
   const merchCardEls = [...blockText.querySelectorAll('merch-card :is(p, ul, ol, div):not([class])')];
   merchCardEls.forEach((e) => e.classList.add('merch-card-el'));
@@ -135,4 +154,5 @@ export default function init(el) {
   });
   decorateTextOverrides(el);
   if (el.classList.contains('l-title')) el.querySelector('[class*="detail-"]')?.classList.add('title-l');
+  if (banner) el.append(banner);
 }
