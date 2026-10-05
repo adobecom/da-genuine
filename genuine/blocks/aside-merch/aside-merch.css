@@ -51,6 +51,50 @@
   margin-bottom: var(--spacing-xs);
 }
 
+.aside-merch.heading-display h1 {
+  font-family: 'Adobe Clean Display', var(--body-font-family);
+  font-weight: 900;
+  font-style: normal;
+  font-size: 42px;
+  line-height: 115%;
+  letter-spacing: 0%;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.aside-merch-banner {
+  --aside-merch-banner-bg: var(--color-white);
+
+  order: 1;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s);
+  width: 100%;
+  min-height: 80px;
+  padding: var(--spacing-xs) var(--spacing-m);
+  background-color: var(--aside-merch-banner-bg);
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: var(--spacing-xs);
+}
+
+.aside-merch .aside-merch-banner .con-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 5px 18px 6px;
+}
+
+@media screen and (max-width: 599px) {
+  .aside-merch-banner {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .aside-merch .background picture {
   display: block;
   height: 100%;
@@ -228,6 +272,12 @@
 .aside-merch.split.large.media-top-mobile,
 .aside-merch.split.large.media-bottom-mobile {
   flex-direction: column;
+}
+
+@media screen and (max-width: 599px) {
+  .aside-merch.split.large:not(.media-top-mobile):not(.media-bottom-mobile) .aside-merch-banner {
+    order: -1;
+  }
 }
 
 .aside-merch.split.half .background {
@@ -464,6 +514,11 @@
   .aside-merch.one-third .foreground.container .text > p:not(merch-card *) {
     max-width: var(--aside-merch-one-third-card-width);
   }
+
+  .aside-merch.heading-display h1 {
+    font-size: 32px;
+    line-height: 120%;
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -528,7 +583,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split .split-image img, .aside-merch.split .split-image video {
-    width: 50vw;
+    width: 50%;
     position: absolute;
     inset-inline-end: 0;
     object-fit: cover;
@@ -540,7 +595,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split.half .split-image img, .aside-merch.split.half .split-image video {
-    width: 50vw;
+    width: 50%;
     max-width: var(--aside-merch-max-width);
     object-position: center top;
   }
@@ -548,7 +603,7 @@
   .aside-merch.split.one-third .split-image .modal-img-link,
   .aside-merch.split.one-third .split-image img,
   .aside-merch.split.one-third .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
   }
 
   .aside-merch.split.split-left .split-image img, .aside-merch.split.split-left .split-image video {
@@ -563,7 +618,7 @@
 
   .aside-merch.split.one-third.split.half .split-image img,
   .aside-merch.split.one-third.split.half .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
     max-width: none;
   }
 
@@ -612,6 +667,11 @@
     max-width: 33.333%;
   }
 
+  .aside-merch.split.one-third .aside-merch-banner {
+    margin-inline-start: calc(33.333% + 38px);
+    width: calc(66.667% - 38px);
+  }
+
   .aside-merch.split.half .background {
     inset-inline-end: 50%;
   }
@@ -631,6 +691,11 @@
     padding: 0 var(--spacing-xl);
     margin-inline-start: 14px;
     box-sizing: border-box;
+  }
+
+  .aside-merch.split.half .aside-merch-banner {
+    margin-inline-start: 50%;
+    width: 50%;
   }
 
   .aside-merch.split.bio .foreground.container .text .icon-area:not(.con-button) {
@@ -696,6 +761,11 @@
   .aside-merch.split.media-top-tablet .icon-stack-area li, .aside-merch.split.media-bottom-tablet .icon-stack-area li {
     width: calc(50% - 6px);
   }
+
+  .aside-merch.heading-display h1 {
+    font-size: 36px;
+    line-height: 118%;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -750,7 +820,7 @@
   }
 
   .aside-merch .split-image .modal-img-link, .aside-merch.split .split-image img, .aside-merch.split .split-image video {
-    width: 60.5vw;
+    width: 60.5%;
   }
 
   .aside-merch.split .split-image img, .aside-merch.split .split-image video {
@@ -768,7 +838,7 @@
   .aside-merch.split.one-third .split-image .modal-img-link,
   .aside-merch.split.one-third .split-image img,
   .aside-merch.split.one-third .split-image video {
-    width: 33.333vw;
+    width: 33.333%;
     max-width: 100%;
   }
 
@@ -787,7 +857,7 @@
 
 @media screen and (min-width: 1440px) {
   .aside-merch.split .foreground.container .text {
-    flex: 0 0 calc(500px - 10.5vw);
+    flex: 0 0 calc(500px - 10.5%);
   }
 
   .aside-merch.split.one-third .foreground.container .text {
@@ -795,4 +865,3 @@
     max-width: 100%;
   }
 }
-
