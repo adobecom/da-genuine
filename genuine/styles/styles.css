@@ -39,3 +39,13 @@
   text-decoration: none !important;
   color: var(--link-disabled-color) !important;
 }
+
+.notification.align-start .foreground .text,
+.notification.ribbon.space-between.align-start .foreground .text {
+  column-gap: var(--spacing-xxs);
+}
+
+.notification.align-start .foreground .icon-area,
+.notification.ribbon.space-between.align-start .foreground .icon-area {
+  margin-inline-end: var(--spacing-xxs);
+}
