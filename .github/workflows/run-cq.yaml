@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Sonarqube analyze
-    runs-on: ubuntu-latest
+    runs-on: sonarqube-runners
     
     steps:
       - uses: actions/checkout@v4
