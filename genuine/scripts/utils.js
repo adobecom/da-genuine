@@ -44,7 +44,7 @@ export const [setLibs, getLibs] = (() => {
         return libs;
       }
       if (branch === 'main' && hostname.includes('.stage.')) { libs = prodLibs; return libs; }
-      if (branch.indexOf('--') > -1) {
+      if (branch.includes('--')) {
         libs = `https://${branch}.aem.live/libs`;
         return libs;
       }
