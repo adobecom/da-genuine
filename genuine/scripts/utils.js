@@ -100,22 +100,22 @@ export function getUrlParams(paramKeys = []) {
   }, {});
 }
 
+function replaceDotMedia(area = document) {
+  const resetAttributeBase = (tag, attr) => {
+    area.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
+      el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, window.location).href}`;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+}
+
 function getDecorateAreaFn() {
   function isRootPage() {
     const currUrl = new URL(window.location);
     const pathSeg = currUrl.pathname.split('/').length;
     const locale = getConfig().locale?.prefix;
     return (locale === '' && pathSeg < 3) || (locale !== '' && pathSeg < 4);
-  }
-
-  function replaceDotMedia(area = document) {
-    const resetAttributeBase = (tag, attr) => {
-      area.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
-        el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, window.location).href}`;
-      });
-    };
-    resetAttributeBase('img', 'src');
-    resetAttributeBase('source', 'srcset');
   }
 
   return (area) => {
