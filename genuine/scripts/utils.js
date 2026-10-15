@@ -75,7 +75,7 @@ function getCountdown(timer) {
   }
 
   if (timer.endsWith('d')) {
-    const countdown = parseInt(timer, 10);
+    const countdown = Number.parseInt(timer, 10);
     return Number.isNaN(countdown) ? 0 : countdown;
   }
   const now = new Date();
