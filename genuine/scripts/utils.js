@@ -44,7 +44,7 @@ export const [setLibs, getLibs] = (() => {
         return libs;
       }
       if (branch === 'main' && hostname.includes('.stage.')) { libs = prodLibs; return libs; }
-      if (branch.indexOf('--') > -1) {
+      if (branch.includes('--')) {
         libs = `https://${branch}.aem.live/libs`;
         return libs;
       }
@@ -75,7 +75,7 @@ function getCountdown(timer) {
   }
 
   if (timer.endsWith('d')) {
-    const countdown = parseInt(timer, 10);
+    const countdown = Number.parseInt(timer, 10);
     return Number.isNaN(countdown) ? 0 : countdown;
   }
   const now = new Date();
