@@ -32,12 +32,12 @@ export const [setLibs, getLibs] = (() => {
         libs = prodLibs;
         return libs;
       }
-      const { hostname } = window.location;
+      const { hostname } = globalThis.location;
       if (!['.aem.', '.hlx.', '.stage.', 'localhost', '.da.'].some((i) => hostname.includes(i))) {
         libs = prodLibs;
         return libs;
       }
-      const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+      const branch = new URLSearchParams(globalThis.location.search).get('milolibs') || 'main';
       if (!/^[a-zA-Z0-9_-]+$/.test(branch)) throw new Error('Invalid branch name.');
       if (branch === 'local') {
         libs = 'http://localhost:6456/libs';
@@ -84,7 +84,7 @@ function getCountdown(timer) {
 }
 
 function getParamValue(val) {
-  let paramValue = (new URLSearchParams(window.location.search)).get(val);
+  let paramValue = (new URLSearchParams(globalThis.location.search)).get(val);
   if (val === 'timer' && paramValue) {
     paramValue = getCountdown(paramValue);
   }
@@ -102,7 +102,7 @@ export function getUrlParams(paramKeys = []) {
 
 function getDecorateAreaFn() {
   function isRootPage() {
-    const currUrl = new URL(window.location);
+    const currUrl = new URL(globalThis.location);
     const pathSeg = currUrl.pathname.split('/').length;
     const locale = getConfig().locale?.prefix;
     return (locale === '' && pathSeg < 3) || (locale !== '' && pathSeg < 4);
@@ -111,7 +111,7 @@ function getDecorateAreaFn() {
   function replaceDotMedia(area = document) {
     const resetAttributeBase = (tag, attr) => {
       area.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
-        el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, window.location).href}`;
+        el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, globalThis.location).href}`;
       });
     };
     resetAttributeBase('img', 'src');
