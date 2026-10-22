@@ -44,7 +44,7 @@ export const [setLibs, getLibs] = (() => {
         return libs;
       }
       if (branch === 'main' && hostname.includes('.stage.')) { libs = prodLibs; return libs; }
-      if (branch.indexOf('--') > -1) {
+      if (branch.includes('--')) {
         libs = `https://${branch}.aem.live/libs`;
         return libs;
       }
@@ -75,7 +75,7 @@ function getCountdown(timer) {
   }
 
   if (timer.endsWith('d')) {
-    const countdown = parseInt(timer, 10);
+    const countdown = Number.parseInt(timer, 10);
     return Number.isNaN(countdown) ? 0 : countdown;
   }
   const now = new Date();
@@ -106,12 +106,30 @@ function isRootPage() {
   const locale = getConfig().locale?.prefix;
   return (locale === '' && pathSeg < 3) || (locale !== '' && pathSeg < 4);
 }
+function replaceDotMedia(area = document) {
+  const resetAttributeBase = (tag, attr) => {
+    area.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
+      el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, window.location).href}`;
+    });
+  };
+  resetAttributeBase('img', 'src');
+  resetAttributeBase('source', 'srcset');
+}
+
+function getDecorateAreaFn() {
+  function isRootPage() {
+    const currUrl = new URL(window.location);
+    const pathSeg = currUrl.pathname.split('/').length;
+    const locale = getConfig().locale?.prefix;
+    return (locale === '' && pathSeg < 3) || (locale !== '' && pathSeg < 4);
+  }
 
 function getDecorateAreaFn() {
   function replaceDotMedia(area = document) {
     const resetAttributeBase = (tag, attr) => {
       area.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
-        el[attr] = `${new URL(`${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`, window.location).href}`;
+        const mediaUrl = `${getConfig().contentRoot}${el.getAttribute(attr).substring(1)}`;
+        el[attr] = new URL(mediaUrl, window.location).href;
       });
     };
     resetAttributeBase('img', 'src');
